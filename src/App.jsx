@@ -110,6 +110,53 @@ tr.click:hover td{background:var(--surface2);cursor:pointer}
 .forecast-bar{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--border);margin-top:4px;position:relative}
 .forecast-fill{height:100%;border-radius:4px;transition:width .3s}
 .forecast-marker{position:absolute;top:-2px;width:2px;height:12px;background:var(--navy);border-radius:1px}
+
+/* ── RESPONSIVE MOBILE ── */
+@media (max-width: 768px) {
+  .app { flex-direction: column; }
+  .sidebar { display: none; }
+  .main { width: 100%; padding-bottom: 72px; }
+  .topbar { padding: 10px 16px; }
+  .topbar-title { font-size: 11px; }
+  .content { padding: 14px 14px; }
+  .card { padding: 14px; margin-bottom: 12px; }
+  .form-grid { grid-template-columns: 1fr; gap: 10px; }
+  .form-grid-3 { grid-template-columns: 1fr; gap: 10px; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { font-size: 11px; min-width: 500px; }
+  th, td { padding: 7px 8px; }
+  .filter-row { flex-direction: column; align-items: stretch; }
+  .filter-input, .filter-select { min-width: unset; width: 100%; }
+  .btn { font-size: 11px; padding: 8px 12px; }
+  .mftr { flex-wrap: wrap; gap: 8px; }
+  .mftr .btn { flex: 1; justify-content: center; }
+  .overlay { padding: 0; align-items: flex-end; }
+  .modal { border-radius: 16px 16px 0 0; max-width: 100%; max-height: 92vh; overflow-y: auto; }
+  .tabs-row { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tab { font-size: 10px; padding: 8px 10px; }
+  .notif { bottom: 80px; right: 10px; left: 10px; max-width: unset; }
+}
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: flex !important;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--navy); border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 50; height: 64px;
+    justify-content: space-around; align-items: center;
+    padding: 0 4px; box-shadow: 0 -2px 12px rgba(33,51,99,0.2);
+  }
+  .mobile-nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    cursor: pointer; padding: 6px 8px; border-radius: 8px;
+    color: rgba(255,255,255,0.5); transition: all .15s; flex: 1;
+  }
+  .mobile-nav-item.active { color: #fff; background: rgba(255,255,255,0.1); }
+  .mobile-nav-icon { font-size: 16px; line-height: 1; }
+  .mobile-nav-label { font-size: 8px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; font-family: var(--mono); text-align: center; }
+}
+@media (min-width: 769px) {
+  .mobile-nav { display: none !important; }
+}
 `;
 
 const fmtDate = d => d ? new Date(d + "T00:00:00").toLocaleDateString("es-AR") : "—";
@@ -918,8 +965,86 @@ function PageHistorial({ buque }) {
   );
 }
 
+// ─── LOGIN PAGE ───────────────────────────────────────────────────────────────
+function LoginPage() {
+  const [email, setEmail]     = useState("");
+  const [pass, setPass]       = useState("");
+  const [loadingL, setLoadingL] = useState(false);
+  const [error, setError]     = useState("");
+
+  const handleLogin = async () => {
+    setLoadingL(true); setError("");
+    try {
+      const { error: e } = await supabase.auth.signInWithPassword({ email, password: pass });
+      if (e) setError("Credenciales incorrectas. Verificá tu email y contraseña.");
+    } catch {
+      setError("Error de conexión. Verificá tu red e intentá nuevamente.");
+    } finally {
+      setLoadingL(false);
+    }
+  };
+
+  const handleKey = (e) => { if (e.key === "Enter") handleLogin(); };
+
+  const loginCSS = `
+    .lw{min-height:100vh;display:flex;background:#213363;position:relative;overflow:hidden}
+    .lo{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(33,51,99,0.93) 0%,rgba(33,51,99,0.75) 60%,rgba(33,51,99,0.93) 100%)}
+    .ll{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(35,92,150,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(35,92,150,0.06) 1px,transparent 1px);background-size:60px 60px}
+    .ls{position:relative;z-index:2;display:flex;width:100%}
+    .lleft{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 60px;border-right:1px solid rgba(255,255,255,0.1)}
+    .ley{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:16px}
+    .ltitle{font-size:44px;font-weight:900;color:#fff;line-height:0.95;letter-spacing:-2px}
+    .ltitle span{color:#7EB8E8;display:block}
+    .lline{width:48px;height:3px;background:#235C96;margin:18px 0}
+    .lsub{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:300px;font-style:italic}
+    .lright{width:420px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:60px 48px}
+    .lcard{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(35,92,150,0.25);border-radius:16px;padding:36px;backdrop-filter:blur(20px)}
+    .lct{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+    .lcs{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:24px;text-transform:uppercase}
+    .lfg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+    .lfg label{font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;font-weight:600}
+    .lfg input{border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 13px;font-size:13px;font-family:'Montserrat',sans-serif;color:#fff;background:rgba(255,255,255,0.06);outline:none;transition:border-color .15s}
+    .lfg input::placeholder{color:rgba(255,255,255,0.2)}
+    .lfg input:focus{border-color:#7EB8E8;background:rgba(255,255,255,0.09)}
+    .lbtn{width:100%;padding:11px;margin-top:8px;background:#235C96;color:#fff;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
+    .lbtn:hover{background:#2E75C0}
+    .lbtn:disabled{opacity:.5;cursor:not-allowed}
+    .lerr{background:rgba(239,68,68,0.12);color:#FCA5A5;border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:10px 13px;font-size:12px;margin-bottom:12px}
+    .lfoot{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);margin-top:16px;letter-spacing:1px}
+    @media(max-width:768px){.ls{flex-direction:column}.lleft{padding:48px 32px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.1)}.lright{width:100%;padding:32px 24px}.ltitle{font-size:32px}}
+  `;
+
+  return (
+    <>
+      <style>{loginCSS}</style>
+      <div className="lw">
+        <div className="ll" /><div className="lo" />
+        <div className="ls">
+          <div className="lleft">
+            <div className="ley">Mantenimiento de flota</div>
+            <div className="ltitle">MANTENIMIENTO<span>PARANA</span></div>
+            <div className="lline" />
+            <div className="lsub">Plan preventivo, correctivos e historial técnico de la flota.</div>
+          </div>
+          <div className="lright">
+            <div className="lcard">
+              <div className="lct">Acceso al sistema</div>
+              <div className="lcs">Solo personal autorizado</div>
+              {error && <div className="lerr">{error}</div>}
+              <div className="lfg"><label>Email</label><input type="email" value={email} onChange={e => setEmail(e.target.value)} onKeyDown={handleKey} placeholder="usuario@paranalogistica.com.ar" autoFocus /></div>
+              <div className="lfg"><label>Contraseña</label><input type="password" value={pass} onChange={e => setPass(e.target.value)} onKeyDown={handleKey} placeholder="••••••••" /></div>
+              <button className="lbtn" onClick={handleLogin} disabled={loadingL || !email || !pass}>{loadingL ? "Ingresando..." : "Ingresar →"}</button>
+              <div className="lfoot">Parana Logística · Mantenimiento · Confidencial</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 // ─── ROOT APP ─────────────────────────────────────────────────────────────────
-export default function App() {
+function MantenimientoApp() {
   const [buques, setBuques] = useState([]);
   const [buqueSeleccionado, setBuqueSeleccionado] = useState(null);
   const [page, setPage] = useState("dashboard");
@@ -1011,6 +1136,54 @@ export default function App() {
         </div>
       </div>
       <Notif msg={notif} onClose={() => setNotif(null)} />
+      {/* Bottom nav — solo mobile */}
+      <nav className="mobile-nav">
+        <div className={`mobile-nav-item ${page === "dashboard" ? "active" : ""}`} onClick={() => setPage("dashboard")}>
+          <span className="mobile-nav-icon">▦</span>
+          <span className="mobile-nav-label">Dashboard</span>
+        </div>
+        <div className={`mobile-nav-item ${page === "horas" ? "active" : ""}`} onClick={() => setPage("horas")}>
+          <span className="mobile-nav-icon">⏱</span>
+          <span className="mobile-nav-label">Horas</span>
+        </div>
+        <div className={`mobile-nav-item ${page === "plan" ? "active" : ""}`} onClick={() => setPage("plan")}>
+          <span className="mobile-nav-icon">☰</span>
+          <span className="mobile-nav-label">Plan</span>
+        </div>
+        <div className={`mobile-nav-item ${page === "correctivos" ? "active" : ""}`} onClick={() => setPage("correctivos")}>
+          <span className="mobile-nav-icon">⚠</span>
+          <span className="mobile-nav-label">Correct.</span>
+        </div>
+        <div className={`mobile-nav-item ${page === "historial" ? "active" : ""}`} onClick={() => setPage("historial")}>
+          <span className="mobile-nav-icon">📋</span>
+          <span className="mobile-nav-label">Historial</span>
+        </div>
+      </nav>
     </>
   );
+}
+
+export default function App() {
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) return (
+    <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", background:"#213363" }}>
+      <div style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"rgba(255,255,255,0.3)", letterSpacing:3, textTransform:"uppercase" }}>Cargando...</div>
+    </div>
+  );
+
+  if (!session) return <LoginPage />;
+  return <MantenimientoApp />;
 }

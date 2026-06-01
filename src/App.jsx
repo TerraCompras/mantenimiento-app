@@ -13,8 +13,8 @@ const CSS = `
   --warn:#B07D0A;--danger:#C0392B;
   --sans:'Montserrat',sans-serif;--mono:'DM Mono',monospace;--r:6px;--r2:10px;
 }
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.5;min-height:100vh;overflow-x:hidden}
-.app{display:flex;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.5;min-height:100vh}
+.app{display:flex;min-height:100vh}
 .sidebar{width:235px;min-width:235px;background:var(--navy);display:flex;flex-direction:column;box-shadow:2px 0 8px rgba(33,51,99,.15)}
 .sidebar-header{border-bottom:1px solid rgba(255,255,255,.1)}
 .sidebar-logo-wrap{padding:20px 18px 16px;display:flex;align-items:center;gap:12px}
@@ -30,7 +30,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:13px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(33,51,99,.06)}
 .topbar-title{font-size:12px;font-weight:600;letter-spacing:1px;color:var(--navy);text-transform:uppercase}
-.content{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 28px;background:var(--bg)}
+.content{flex:1;overflow-y:auto;padding:24px 28px;background:var(--bg)}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(33,51,99,.06)}
 .card-title{font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
 .badge{display:inline-flex;align-items:center;font-family:var(--mono);font-size:9px;font-weight:600;padding:3px 8px;border-radius:4px;white-space:nowrap;letter-spacing:.3px}
@@ -89,7 +89,7 @@ tr.click:hover td{background:var(--surface2);cursor:pointer}
 .pct-fill.ok{background:var(--accent2)}
 .hs-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:var(--mono);font-size:13px;padding:8px 10px;outline:none;text-align:right}
 .hs-input:focus{border-color:var(--blue)}
-.flex-gap{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.flex-gap{display:flex;gap:8px;align-items:center}
 .flex-between{display:flex;justify-content:space-between;align-items:center}
 .mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}
 .mb8{margin-bottom:8px}.mb12{margin-bottom:12px}
@@ -111,10 +111,6 @@ tr.click:hover td{background:var(--surface2);cursor:pointer}
 .forecast-fill{height:100%;border-radius:4px;transition:width .3s}
 .forecast-marker{position:absolute;top:-2px;width:2px;height:12px;background:var(--navy);border-radius:1px}
 
-.mb16{margin-bottom:16px}
-.req-row-actions{display:flex;flex-direction:row;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);justify-content:flex-end}
-.form-footer-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end;border-top:1px solid var(--border);padding-top:14px;margin-top:16px}
-
 /* ── RESPONSIVE MOBILE ── */
 @media (max-width: 768px) {
   .app { flex-direction: column; }
@@ -122,45 +118,22 @@ tr.click:hover td{background:var(--surface2);cursor:pointer}
   .main { width: 100%; padding-bottom: 72px; }
   .topbar { padding: 10px 16px; }
   .topbar-title { font-size: 11px; }
-  .content { padding: 14px 14px; overflow-x: hidden; }
+  .content { padding: 14px 14px; }
   .card { padding: 14px; margin-bottom: 12px; }
   .form-grid { grid-template-columns: 1fr; gap: 10px; }
   .form-grid-3 { grid-template-columns: 1fr; gap: 10px; }
   .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { font-size: 11px; min-width: 500px; }
   th, td { padding: 7px 8px; }
-  /* Filtros: columna DS §10.6 */
   .filter-row { flex-direction: column; align-items: stretch; }
   .filter-input, .filter-select { min-width: unset; width: 100%; }
-  .filter-row .btn { width: 100%; justify-content: center; }
-  /* Botones: tap target mínimo DS §11.10 */
-  .btn { font-size: 11px; padding: 8px 12px; min-height: 44px; }
-  .btn-sm { min-height: 36px; }
-  /* Modal footer: columna + orden DS §10 */
-  .mftr { flex-direction: column; align-items: stretch; gap: 6px; }
-  .mftr .btn { width: 100%; justify-content: center; min-height: 44px; flex: unset; }
-  .mftr .btn-primary { order: -2; }
-  .mftr .btn-success { order: -3; }
-  .mftr .btn-danger  { order: -1; }
-  /* Modal: bottom sheet */
+  .btn { font-size: 11px; padding: 8px 12px; }
+  .mftr { flex-wrap: wrap; gap: 8px; }
+  .mftr .btn { flex: 1; justify-content: center; }
   .overlay { padding: 0; align-items: flex-end; }
   .modal { border-radius: 16px 16px 0 0; max-width: 100%; max-height: 92vh; overflow-y: auto; }
-  /* Action cards DS §10.2 */
-  .req-row-actions { flex-direction: column; width: 100%; }
-  .req-row-actions .btn { width: 100%; justify-content: center; min-height: 44px; }
-  /* Form footer */
-  .form-footer-actions { flex-direction: column; align-items: stretch; }
-  .form-footer-actions .btn { width: 100%; justify-content: center; min-height: 44px; }
-  /* Stats: 2 columnas */
-  .stats { grid-template-columns: 1fr 1fr; }
-  .stat { padding: 12px; }
-  .stat-value { font-size: 22px; }
-  /* Tabs */
   .tabs-row { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .tab { font-size: 10px; padding: 8px 10px; }
-  /* Inputs: tap target */
-  .fg input, .fg select { min-height: 44px; }
-  /* Notif: encima del bottom nav */
   .notif { bottom: 80px; right: 10px; left: 10px; max-width: unset; }
 }
 @media (max-width: 768px) {
@@ -179,7 +152,7 @@ tr.click:hover td{background:var(--surface2);cursor:pointer}
   }
   .mobile-nav-item.active { color: #fff; background: rgba(255,255,255,0.1); }
   .mobile-nav-icon { font-size: 16px; line-height: 1; }
-  .mobile-nav-label { font-size: 9px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; font-family: var(--mono); text-align: center; }
+  .mobile-nav-label { font-size: 8px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; font-family: var(--mono); text-align: center; }
 }
 @media (min-width: 769px) {
   .mobile-nav { display: none !important; }
@@ -613,15 +586,17 @@ function PageDashboard({ buque, notify }) {
             const restLabel = t.restante < 0 ? `Vencida hace ${Math.abs(Math.round(t.restante))} hs` : `Faltan ${Math.round(t.restante)} hs`;
             return (
               <div key={t.id} className={`alerta-row ${t.estado}`}>
-                {/* Nivel 1: identificadores */}
-                <div className="flex-gap mb8">
-                  <span className={`badge ${badgeClass}`}>{t.estado === "vencida" ? "Vencida" : t.estado === "proxima" ? "Próxima" : "Al día"}</span>
-                  {t.es_critica && <span className="badge b-red">Crítica</span>}
-                  <span style={{ marginLeft: "auto", fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)" }}>{restLabel}</span>
+                <div className="flex-between mb8">
+                  <div className="flex-gap">
+                    <span className={`badge ${badgeClass}`}>{t.estado === "vencida" ? "Vencida" : t.estado === "proxima" ? "Próxima" : "Al día"}</span>
+                    {t.es_critica && <span className="badge b-red">Crítica</span>}
+                  </div>
+                  <div className="flex-gap">
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)" }}>{restLabel}</span>
+                    <button className="btn btn-success btn-sm" onClick={() => setModalEj(t)}>✓ Registrar</button>
+                  </div>
                 </div>
-                {/* Nivel 2: título */}
                 <div style={{ fontWeight: 600, fontSize: 13, color: "var(--navy)", marginBottom: 4 }}>{t.descripcion}</div>
-                {/* Nivel 3: metadata */}
                 <div className="flex-gap mb8">
                   <span style={{ fontSize: 11, color: "var(--muted)" }}>{t.mant_equipos?.nombre}</span>
                   <span style={{ fontSize: 10, color: "var(--muted2)" }}>·</span>
@@ -635,10 +610,6 @@ function PageDashboard({ buque, notify }) {
                   )}
                 </div>
                 <div className="pct-bar"><div className={`pct-fill ${pctClass}`} style={{ width: `${t.pct}%` }} /></div>
-                {/* Nivel 4: acciones DS §10.2 */}
-                <div className="req-row-actions">
-                  <button className="btn btn-success btn-sm" onClick={() => setModalEj(t)}>✓ Registrar ejecución</button>
-                </div>
               </div>
             );
           })
@@ -720,7 +691,7 @@ function PageHoras({ buque, notify }) {
                 ))}
               </div>
           }
-          <div className="form-footer-actions">
+          <div className="mt16" style={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid var(--border)", paddingTop: 14 }}>
             <button className="btn btn-primary" onClick={handleGuardar} disabled={saving || !equipos.length}>
               {saving ? "Guardando..." : "Guardar registro"}
             </button>
@@ -994,12 +965,12 @@ function PageHistorial({ buque }) {
   );
 }
 
-// ─── LOGIN PAGE ───────────────────────────────────────────────────────────────
+// ─── LOGIN PAGE — DS §8.7 / §9.1-C / §11.12 ─────────────────────────────────
 function LoginPage() {
-  const [email, setEmail]     = useState("");
-  const [pass, setPass]       = useState("");
+  const [email, setEmail]       = useState("");
+  const [pass, setPass]         = useState("");
   const [loadingL, setLoadingL] = useState(false);
-  const [error, setError]     = useState("");
+  const [error, setError]       = useState("");
 
   const handleLogin = async () => {
     setLoadingL(true); setError("");
@@ -1015,57 +986,97 @@ function LoginPage() {
 
   const handleKey = (e) => { if (e.key === "Enter") handleLogin(); };
 
+  // DS §9.1-C: fondo #0B1629, grid teal rgba(26,122,110,.06), gold #B8942A
   const loginCSS = `
-    .lw{min-height:100vh;display:flex;background:#213363;position:relative;overflow:hidden}
-    .lo{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(33,51,99,0.93) 0%,rgba(33,51,99,0.75) 60%,rgba(33,51,99,0.93) 100%)}
-    .ll{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(35,92,150,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(35,92,150,0.06) 1px,transparent 1px);background-size:60px 60px}
-    .ls{position:relative;z-index:2;display:flex;width:100%}
-    .lleft{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 60px;border-right:1px solid rgba(255,255,255,0.1)}
-    .ley{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:16px}
-    .ltitle{font-size:44px;font-weight:900;color:#fff;line-height:0.95;letter-spacing:-2px}
-    .ltitle span{color:#7EB8E8;display:block}
-    .lline{width:48px;height:3px;background:#235C96;margin:18px 0}
-    .lsub{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:300px;font-style:italic}
-    .lright{width:420px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:60px 48px}
-    .lcard{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(35,92,150,0.25);border-radius:16px;padding:36px;backdrop-filter:blur(20px)}
-    .lct{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
-    .lcs{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:24px;text-transform:uppercase}
-    .lfg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-    .lfg label{font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;font-weight:600}
-    .lfg input{border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 13px;font-size:13px;font-family:'Montserrat',sans-serif;color:#fff;background:rgba(255,255,255,0.06);outline:none;transition:border-color .15s}
-    .lfg input::placeholder{color:rgba(255,255,255,0.2)}
-    .lfg input:focus{border-color:#7EB8E8;background:rgba(255,255,255,0.09)}
-    .lbtn{width:100%;padding:11px;margin-top:8px;background:#235C96;color:#fff;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
-    .lbtn:hover{background:#2E75C0}
-    .lbtn:disabled{opacity:.5;cursor:not-allowed}
-    .lerr{background:rgba(239,68,68,0.12);color:#FCA5A5;border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:10px 13px;font-size:12px;margin-bottom:12px}
-    .lfoot{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);margin-top:16px;letter-spacing:1px}
-    @media(max-width:768px){.ls{flex-direction:column}.lleft{padding:48px 32px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.1)}.lright{width:100%;padding:32px 28px 56px;display:flex;justify-content:center;align-items:flex-start}.lcard{width:min(340px,80vw);max-width:340px;margin:0 auto;padding:32px 28px}.ltitle{font-size:32px}}
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap');
+    .login-page{min-height:100vh;display:flex;background:#0B1629;position:relative;overflow:hidden}
+    .login-bg-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(11,22,41,0.92) 0%,rgba(11,22,41,0.75) 60%,rgba(11,22,41,0.92) 100%)}
+    .login-bg-lines{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(26,122,110,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(26,122,110,0.06) 1px,transparent 1px);background-size:60px 60px}
+    .login-split{position:relative;z-index:2;display:flex;width:100%}
+    /* ── Izquierda DS §8.7 ── */
+    .login-left{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 60px;border-right:1px solid rgba(26,122,110,0.2)}
+    .login-left-integra-wrap{margin-bottom:8px}
+    .login-left-integra-img{height:340px;width:auto;object-fit:contain;opacity:0.95}
+    .login-left-divider{width:100%;height:1px;background:rgba(255,255,255,0.1);margin:8px 0 20px}
+    .login-left-company{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+    .login-left-company-logo{width:48px;height:48px;border-radius:50%;object-fit:contain;border:1.5px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05)}
+    .login-left-company-name{font-size:20px;font-weight:800;color:#fff;letter-spacing:0.5px}
+    .login-left-line{width:48px;height:3px;background:#1A7A6E;margin:20px 0}
+    .login-left-sub{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;max-width:320px;font-style:italic}
+    /* ── Derecha DS §8.7 ── */
+    .login-right{width:440px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:60px 48px}
+    .login-card{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(184,148,42,0.2);border-radius:16px;padding:40px 36px;backdrop-filter:blur(20px)}
+    .login-card-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:#B8942A;text-transform:uppercase;margin-bottom:10px}
+    .login-card-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+    .login-card-sub{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:28px;text-transform:uppercase}
+    .login-fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+    .login-fg label{font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;font-weight:600}
+    .login-fg input{border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:11px 14px;font-size:13px;font-family:'Montserrat',sans-serif;color:#fff;background:rgba(255,255,255,0.06);outline:none;transition:border-color .15s}
+    .login-fg input::placeholder{color:rgba(255,255,255,0.2)}
+    .login-fg input:focus{border-color:#B8942A;background:rgba(255,255,255,0.09)}
+    .login-btn{width:100%;padding:12px;margin-top:8px;background:#B8942A;color:#0B1629;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s;letter-spacing:.5px}
+    .login-btn:hover{background:#D4AA3A}
+    .login-btn:disabled{opacity:.5;cursor:not-allowed}
+    .login-error{background:rgba(239,68,68,0.12);color:#FCA5A5;border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:10px 14px;font-size:12px;margin-bottom:14px}
+    .login-footer{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);margin-top:20px;letter-spacing:1px}
+    /* ── Mobile DS §8.7 + §11.12 Optical Centering Rule ── */
+    @media(max-width:768px){
+      .login-split{flex-direction:column}
+      .login-left{padding:48px 32px 32px;border-right:none;border-bottom:1px solid rgba(26,122,110,0.2);align-items:center;text-align:center}
+      .login-left-integra-img{height:200px;max-width:90vw}
+      .login-left-line{margin:16px auto}
+      .login-left-sub{max-width:100%}
+      .login-right{width:100%;padding:32px 28px 56px;display:flex;justify-content:center;align-items:flex-start}
+      .login-card{width:min(340px,80vw);max-width:340px;margin:0 auto;padding:32px 28px}
+    }
+    @media(max-width:414px){ .login-card{width:min(332px,80vw)} }
+    @media(max-width:390px){ .login-card{width:min(312px,80vw);padding:28px 24px} }
   `;
 
   return (
     <>
       <style>{loginCSS}</style>
-      <div className="lw">
-        <div className="ll" /><div className="lo" />
-        <div className="ls">
-          <div className="lleft">
-            <div className="ley">Mantenimiento de flota</div>
-            <div className="ltitle">MANTENIMIENTO<span>PARANA</span></div>
-            <div className="lline" />
-            <div className="lsub">Plan preventivo, correctivos e historial técnico de la flota.</div>
+      <div className="login-page">
+        <div className="login-bg-lines" />
+        <div className="login-bg-overlay" />
+        <div className="login-split">
+
+          {/* ── Panel izquierdo: marca INTEGRA ── */}
+          <div className="login-left">
+            <div className="login-left-integra-wrap">
+              <img src="/integralogo.png" alt="INTEGRA" className="login-left-integra-img" />
+            </div>
+            <div className="login-left-divider" />
+            <div className="login-left-company">
+              <img src="/PL.png" alt="Parana Logística" className="login-left-company-logo" />
+              <div className="login-left-company-name">Parana Logística | Mantenimiento</div>
+            </div>
+            <div className="login-left-line" />
+            <div className="login-left-sub">We Find the Way, or We Make One.</div>
           </div>
-          <div className="lright">
-            <div className="lcard">
-              <div className="lct">Acceso al sistema</div>
-              <div className="lcs">Solo personal autorizado</div>
-              {error && <div className="lerr">{error}</div>}
-              <div className="lfg"><label>Email</label><input type="email" value={email} onChange={e => setEmail(e.target.value)} onKeyDown={handleKey} placeholder="usuario@paranalogistica.com.ar" autoFocus /></div>
-              <div className="lfg"><label>Contraseña</label><input type="password" value={pass} onChange={e => setPass(e.target.value)} onKeyDown={handleKey} placeholder="••••••••" /></div>
-              <button className="lbtn" onClick={handleLogin} disabled={loadingL || !email || !pass}>{loadingL ? "Ingresando..." : "Ingresar →"}</button>
-              <div className="lfoot">Parana Logística · Mantenimiento · Confidencial</div>
+
+          {/* ── Panel derecho: formulario ── */}
+          <div className="login-right">
+            <div className="login-card">
+              <div className="login-card-eyebrow">Parana Logística | Mantenimiento</div>
+              <div className="login-card-title">Acceso al portal</div>
+              <div className="login-card-sub">Solo personal autorizado</div>
+              {error && <div className="login-error">{error}</div>}
+              <div className="login-fg">
+                <label>Email</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} onKeyDown={handleKey} placeholder="usuario@paranalogistica.com.ar" autoFocus />
+              </div>
+              <div className="login-fg">
+                <label>Contraseña</label>
+                <input type="password" value={pass} onChange={e => setPass(e.target.value)} onKeyDown={handleKey} placeholder="••••••••" />
+              </div>
+              <button className="login-btn" onClick={handleLogin} disabled={loadingL || !email || !pass}>
+                {loadingL ? "Ingresando..." : "Ingresar →"}
+              </button>
+              <div className="login-footer">Parana Logística · Mantenimiento · Confidencial</div>
             </div>
           </div>
+
         </div>
       </div>
     </>
@@ -1105,7 +1116,7 @@ function MantenimientoApp() {
     </div>
   );
 
-  if (loading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", fontFamily: "var(--sans,'Montserrat',sans-serif)", color: "var(--muted, #6381A7)" }}>Cargando...</div>;
+  if (loading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", fontFamily: "sans-serif", color: "#6381A7" }}>Cargando...</div>;
 
   return (
     <>
@@ -1208,7 +1219,7 @@ export default function App() {
   }, []);
 
   if (loading) return (
-    <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", background:"var(--navy,#213363)" }}>
+    <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", background:"#213363" }}>
       <div style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"rgba(255,255,255,0.3)", letterSpacing:3, textTransform:"uppercase" }}>Cargando...</div>
     </div>
   );

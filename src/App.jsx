@@ -19,6 +19,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14
 .sidebar-header{border-bottom:1px solid rgba(255,255,255,.1)}
 .sidebar-logo-wrap{padding:20px 18px 16px;display:flex;align-items:center;gap:12px}
 .sidebar-logo{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.sidebar-logo-img{width:36px;height:36px;object-fit:cover;border-radius:50%;border:2px solid rgba(255,255,255,.2)}
 .sidebar-logo-main{font-size:13px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase}
 .sidebar-logo-sub{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.5px}
 .nav-section{padding:12px 18px 4px;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase}
@@ -1125,7 +1126,7 @@ function MantenimientoApp() {
         <nav className="sidebar">
           <div className="sidebar-header">
             <div className="sidebar-logo-wrap">
-              <div className="sidebar-logo">⚙️</div>
+              <img src="/PL.png" alt="PL Offshore" className="sidebar-logo-img" onError={e => { e.currentTarget.style.display = "none"; }} />
               <div>
                 <div className="sidebar-logo-main">Mantenimiento</div>
                 <div className="sidebar-logo-sub">PL Offshore</div>

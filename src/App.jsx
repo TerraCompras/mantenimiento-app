@@ -1048,8 +1048,8 @@ function LoginPage() {
             </div>
             <div className="login-left-divider" />
             <div className="login-left-company">
-              <img src="/PL.png" alt="Parana Logística" className="login-left-company-logo" />
-              <div className="login-left-company-name">Parana Logística | Mantenimiento</div>
+              <img src="/PL.png" alt="PL Offshore" className="login-left-company-logo" />
+              <div className="login-left-company-name">PL Offshore | Mantenimiento</div>
             </div>
             <div className="login-left-line" />
             <div className="login-left-sub">We Find the Way, or We Make One.</div>
@@ -1058,7 +1058,7 @@ function LoginPage() {
           {/* ── Panel derecho: formulario ── */}
           <div className="login-right">
             <div className="login-card">
-              <div className="login-card-eyebrow">Parana Logística | Mantenimiento</div>
+              <div className="login-card-eyebrow">PL Offshore | Mantenimiento</div>
               <div className="login-card-title">Acceso al portal</div>
               <div className="login-card-sub">Solo personal autorizado</div>
               {error && <div className="login-error">{error}</div>}
@@ -1073,7 +1073,7 @@ function LoginPage() {
               <button className="login-btn" onClick={handleLogin} disabled={loadingL || !email || !pass}>
                 {loadingL ? "Ingresando..." : "Ingresar →"}
               </button>
-              <div className="login-footer">Parana Logística · Mantenimiento · Confidencial</div>
+              <div className="login-footer">PL Offshore · Mantenimiento · Confidencial</div>
             </div>
           </div>
 
@@ -1128,7 +1128,7 @@ function MantenimientoApp() {
               <div className="sidebar-logo">⚙️</div>
               <div>
                 <div className="sidebar-logo-main">Mantenimiento</div>
-                <div className="sidebar-logo-sub">Terra Mare Group</div>
+                <div className="sidebar-logo-sub">PL Offshore</div>
               </div>
             </div>
           </div>
